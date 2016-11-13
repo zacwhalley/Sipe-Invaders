@@ -3,10 +3,17 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour {
 
+    public int faction = 0;
     Rigidbody2D projectile;
-    float speed = 0.0f;
-    int damage = 0;
+    int damage = 1;
+    float speed = 0;
 
+    public void Initialize(int damage, float speed, int faction)
+    {
+        Damage = damage;
+        Speed = speed;
+        Faction = faction;
+    }
 	// Use this for initialization
 	void Start ()
     {
@@ -17,15 +24,18 @@ public class Projectile : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (projectile.transform.position.y > 6.0f)
+        // Destroy when out of bounds
+        if (projectile.transform.position.y > 6.0f || projectile.transform.position.y < -6.0f )
             Destroy(gameObject);
     }
 
     void OnCollisionEnter2D(Collision2D obj)
     {
-        Debug.Log("Hit bullet");
         Destroy(gameObject);
     }//OnCollisionEnter
+
+
+    // Accessors
 
     public float Speed
     {
@@ -38,6 +48,12 @@ public class Projectile : MonoBehaviour {
         get { return damage;  }
         set { damage = value;  }
     }//Damage
+
+    public int Faction
+    {
+        get { return faction; }
+        set { faction = value; }
+    }//Faction
 
 
 
