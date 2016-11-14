@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Projectile : MonoBehaviour {
+public class Projectile : MonoBehaviour
+{
 
-    public int faction = 0;
+    public int faction;
     Rigidbody2D projectile;
-    int damage = 1;
-    float speed = 0;
+    int damage;
+    float speed;
 
     public void Initialize(int damage, float speed, int faction)
     {
@@ -36,7 +37,6 @@ public class Projectile : MonoBehaviour {
 
 
     // Accessors
-
     public float Speed
     {
         get { return speed; }
@@ -54,8 +54,4 @@ public class Projectile : MonoBehaviour {
         get { return faction; }
         set { faction = value; }
     }//Faction
-
-
-
-
 }

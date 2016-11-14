@@ -1,24 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : Character {
-
-    
+public class PlayerController : Character
+{
     float speed = 500.0f;
     
 	// Use this for initialization
-	void Start () {
-        character = GetComponent<Rigidbody2D>();
+	void Start ()
+    {
+        InitializeCharacter();
         health = 3;
         faction = 1;
 	}//Start
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+        ObjectUpdate();
         Move(Input.GetAxisRaw("Horizontal"));
         if (Input.GetKeyDown(KeyCode.Space))
-            Shoot(1, 1000.0f, 1);
-        
+            Shoot(1, 1000.0f);        
     }//Update
 
     //Move - moves the character left and right
