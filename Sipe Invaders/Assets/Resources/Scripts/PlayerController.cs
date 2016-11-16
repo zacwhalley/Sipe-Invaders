@@ -34,4 +34,9 @@ public class PlayerController : Character
 
         character.velocity = newVelocity;
     }//Move
+
+    void OnCollisonEnter2D(Collision2D collider)
+    {
+        takeDamage(collider);
+    }
 }

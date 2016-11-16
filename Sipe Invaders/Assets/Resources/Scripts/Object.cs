@@ -18,7 +18,7 @@ public class Object : MonoBehaviour {
             Destroy(this.gameObject);
     }
 
-    protected void OnCollisionEnter2D(Collision2D collider)
+    protected void takeDamage(Collision2D collider)
     {
         if (collider.gameObject.tag == "Projectile")
         {
