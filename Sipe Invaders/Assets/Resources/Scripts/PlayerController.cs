@@ -9,8 +9,8 @@ public class PlayerController : Character
 	void Start ()
     {
         InitializeCharacter();
-        health = 3;
-        faction = 1;
+        Health = 3;
+        Faction = 1;
 	}//Start
 	
 	// Update is called once per frame
