@@ -4,7 +4,6 @@ using System.Collections;
 
 public class Character : Object
 {
-
     public Rigidbody2D character;
 
     // Use this for initialization
@@ -17,7 +16,7 @@ public class Character : Object
 
     }
 
-    protected void Shoot(int bulletDamage, float bulletSpeed)
+    protected void Shoot(int bulletDamage, float bulletSpeed, int faction)
     {
         GameObject projectile = (GameObject)Instantiate(Resources.Load("Prefabs\\Projectile"),
                                 transform.position + transform.up * 1.0f * faction, transform.rotation);

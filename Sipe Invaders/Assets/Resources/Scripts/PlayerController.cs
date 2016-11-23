@@ -19,7 +19,7 @@ public class PlayerController : Character
         ObjectUpdate();
         Move(Input.GetAxisRaw("Horizontal"));
         if (Input.GetKeyDown(KeyCode.Space))
-            Shoot(1, 1000.0f);        
+            Shoot(1, 1000.0f, faction);        
     }//Update
 
     //Move - moves the character left and right
@@ -27,7 +27,7 @@ public class PlayerController : Character
     {
         Vector3 newVelocity;
 
-        if ((character.position.x < -10 && input < 0) || (character.position.x > 10 && input > 0) || input == 0)
+        if ((character.position.x < Game.LEFT_BOUNDARY && input < 0) || (character.position.x > Game.RIGHT_BOUNDARY && input > 0) || input == 0)
             newVelocity = new Vector2(0, 0);
         else
             newVelocity = new Vector2(speed * input * Time.deltaTime, 0);

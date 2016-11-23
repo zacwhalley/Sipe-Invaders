@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour
     void Update()
     {
         // Destroy when out of bounds
-        if (projectile.transform.position.y > 6.0f || projectile.transform.position.y < -6.0f )
+        if (projectile.transform.position.y > Game.UPPER_BOUNDARY || projectile.transform.position.y < Game.LOWER_BOUNDARY)
             Destroy(gameObject);
     }
 
