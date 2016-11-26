@@ -3,9 +3,11 @@ using System.Collections;
 
 public class Enemy : Character {
 
-    static int direction = 1;   // direction for enemies to move in 
+    static int direction = 1;     // direction for enemies to move in 
     static float max_posx;        // position of enemy closest to wall
     static public float speed;
+
+    float shotCount = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -19,10 +21,22 @@ public class Enemy : Character {
 	void Update () {
         ObjectUpdate();
         MoveEnemy();
+        AttemptShot();
 	}
 
-    void OnCollisionEnter2D(Collision2D collider)
+
+    void AttemptShot()
     {
+        if (shotCount >= 5f)
+        {
+            Shoot(1, 1000f, faction);
+            shotCount = 0;
+        }
+
+        shotCount += Random.Range(0, 10) * Time.deltaTime;
+    }
+
+    void OnCollisionEnter2D(Collision2D collider){
         takeDamage(collider);
     }
 

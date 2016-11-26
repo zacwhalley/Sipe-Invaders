@@ -18,9 +18,11 @@ public class Character : Object
 
     protected void Shoot(int bulletDamage, float bulletSpeed, int faction)
     {
+        float offset = gameObject.GetComponent<Collider2D>().bounds.size.y;
+
         GameObject projectile = (GameObject)Instantiate(Resources.Load("Prefabs\\Projectile"),
-                                transform.position + transform.up * 1.0f * faction, transform.rotation);
+                                transform.position + transform.up * offset * faction, transform.rotation);
         Projectile bullet = projectile.GetComponent<Projectile>();
-        bullet.Initialize(bulletDamage, bulletSpeed, faction);
+        bullet.Initialize(bulletDamage, bulletSpeed * faction, faction);
     }//Shoot
 }
