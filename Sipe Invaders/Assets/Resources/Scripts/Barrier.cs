@@ -11,7 +11,7 @@ public class Barrier : Object {
 	void Start ()
     {
         Health = 3;
-        Faction = -1;
+        Faction = 0;
         GetComponent<SpriteRenderer>().color = green;
 	}
 	

@@ -6,7 +6,9 @@ public class Enemy : Character {
     static int direction = 1;     // direction for enemies to move in 
     static float max_posx;        // position of enemy closest to wall
     static public float speed;
-
+    static int numEnemies = 0;
+    static float shotTimer = 1000;
+    static Game game; 
     float shotCount = 0;
 
 	// Use this for initialization
@@ -15,25 +17,31 @@ public class Enemy : Character {
         Faction = -1;
         Health = 1;
         speed = 3;
-	}
+        numEnemies++;
+    }
 	
 	// Update is called once per frame
 	void Update () {
+        if(Health == 0)
+        {
+            numEnemies--;
+            Game.score++;
+        }
+
         ObjectUpdate();
         MoveEnemy();
         AttemptShot();
-	}
 
+	}
 
     void AttemptShot()
     {
-        if (shotCount >= 5f)
+        if(shotTimer <= 0)
         {
-            Shoot(1, 1000f, faction);
-            shotCount = 0;
+            Shoot(1, 1000f, Faction);
+            shotTimer = 1000f;
         }
-
-        shotCount += Random.Range(0, 10) * Time.deltaTime;
+        shotTimer -= (1000f * Time.deltaTime) / (numEnemies * speed);
     }
 
     void OnCollisionEnter2D(Collision2D collider){

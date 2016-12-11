@@ -15,7 +15,7 @@ public class Object : MonoBehaviour {
 	protected void ObjectUpdate ()
     {
         if (Health <= 0)
-            Destroy(this.gameObject);              
+            Destroy(this.gameObject);          
     }
 
     protected void takeDamage(Collision2D collider)
