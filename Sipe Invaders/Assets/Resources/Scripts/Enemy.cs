@@ -41,7 +41,7 @@ public class Enemy : Character {
             Shoot(1, 1000f, Faction);
             shotTimer = 1000f;
         }
-        shotTimer -= (1000f * Time.deltaTime) / (numEnemies * speed);
+        shotTimer -= ((900 + Random.Range(0f, 200f)) * Time.deltaTime) / (numEnemies * speed);
     }
 
     void OnCollisionEnter2D(Collision2D collider){
