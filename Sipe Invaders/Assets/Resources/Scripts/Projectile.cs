@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Projectile : MonoBehaviour
+public class Projectile : Entity
 {
-
-    public int faction;
     Rigidbody2D projectile;
     int damage;
     float speed;
@@ -48,10 +46,4 @@ public class Projectile : MonoBehaviour
         get { return damage;  }
         set { damage = value;  }
     }//Damage
-
-    public int Faction
-    {
-        get { return faction; }
-        set { faction = value; }
-    }//Faction
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Barrier : Object {
+public class Barrier : Entity {
 
     Color green = new Color(0.137f, 0.624f, 0.106f, 1);
     Color yellow = new Color(0.890f, 0.835f, 0.145f, 1);

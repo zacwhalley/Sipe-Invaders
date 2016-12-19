@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Object : MonoBehaviour {
+public class Entity : MonoBehaviour { 
 
     public int faction;
     public int health;
@@ -20,14 +20,10 @@ public class Object : MonoBehaviour {
 
     protected void takeDamage(Collision2D collider)
     {
-        if (collider.gameObject.tag == "Projectile")
-        {
-            Projectile projectile = collider.gameObject.GetComponent<Projectile>();
-            if (faction != projectile.Faction)
-            {               
-                Health -= projectile.Damage;
-            }
-        }//if
+        int colliderFaction = collider.gameObject.GetComponent<Entity>().Faction;
+
+        if (collider.gameObject.tag == "Projectile" && Faction != colliderFaction)
+            Health -= collider.gameObject.GetComponent<Projectile>().Damage;
     }//OnCollisionEnter
 
     // Accessors

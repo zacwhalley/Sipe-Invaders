@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerController : Character
 {
     float speed = 500.0f;
+    float timeAtLastShot;
     
 	// Use this for initialization
 	void Start ()
@@ -18,8 +19,11 @@ public class PlayerController : Character
     {
         ObjectUpdate();
         Move(Input.GetAxisRaw("Horizontal"));
-        if (Input.GetKeyDown(KeyCode.Space))
-            Shoot(1, 1000.0f, faction);        
+        if (Input.GetKeyDown(KeyCode.Space) && (Time.time - timeAtLastShot > 0.25f))
+        {
+            Shoot(1, 1000.0f, faction);
+            timeAtLastShot = Time.time;
+        }        
     }//Update
 
     //Move - moves the character left and right
