@@ -23,7 +23,6 @@ public class Barrier : Entity {
 
     void OnCollisionEnter2D(Collision2D collider)
     {
-        Debug.Log("Barrier hit");
         takeDamage(collider);
         UpdateColour();
     }

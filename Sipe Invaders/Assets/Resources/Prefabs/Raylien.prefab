@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 50000012153927394}
   - component: {fileID: 61000013161965048}
   m_Layer: 8
-  m_Name: Enemy
+  m_Name: Raylien
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

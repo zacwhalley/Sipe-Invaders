@@ -3,8 +3,9 @@ using System.Collections;
 
 public class Enemy : Character {
 
-    static public float speed = 3f;
+    static public float speed = 3;
     static int numEnemies = 0;
+    static int maxEnemies = 0;
     float shotTimer;
 
 
@@ -14,6 +15,7 @@ public class Enemy : Character {
         Faction = -1;
         Health = 1;
         numEnemies++;
+        maxEnemies++;
         character.velocity = RandomDirection((int)Random.Range(0, 4.99f));
         shotTimer = Random.Range(1000f, 2000f);
     }
@@ -24,7 +26,7 @@ public class Enemy : Character {
         {
             numEnemies--;
             Game.score++;
-            speed++;
+            speed+=0.5f;
         }
 
         ObjectUpdate();
@@ -40,7 +42,7 @@ public class Enemy : Character {
             Shoot(1, 1000f, Faction);
             shotTimer = Random.Range(500, 1500);
         }
-        shotTimer -= ((50 + Random.Range(0f, 50f)) / (numEnemies * 3));
+        shotTimer -= (200 *(5 + Random.Range(-5f, 15f)) / (maxEnemies * numEnemies * 3));
     }
 
     void OnCollisionEnter2D(Collision2D collider){
@@ -49,11 +51,11 @@ public class Enemy : Character {
 
     void MoveEnemy()
     {
-        if (transform.position.x > Game.RIGHT_BOUNDARY)
+        if (transform.position.x + 0.28 > Game.RIGHT_BOUNDARY)
             character.velocity = RandomDirection(0);
         else if (transform.position.y > Game.UPPER_BOUNDARY)
             character.velocity = RandomDirection(1);
-        else if (transform.position.x < Game.LEFT_BOUNDARY)
+        else if (transform.position.x - 0.25 < Game.LEFT_BOUNDARY)
             character.velocity = RandomDirection(2);
         else if (transform.position.y < Game.LOWER_ENEMY_BOUNDARY)
             character.velocity = RandomDirection(3);
@@ -72,21 +74,11 @@ public class Enemy : Character {
 
         switch(bounds)
         {
-            case 0: x = -1;
-                    y = rnd;
-                    break;
+            case 0: x = -1; y = rnd; break;
+            case 1: x = rnd; y = -1; break;
+            case 2: x = 1; y = rnd; break;
+            case 3: x = rnd; y = 1; break;
 
-            case 1: x = rnd;
-                    y = -1;
-                    break;
-
-            case 2: x = 1;
-                    y = rnd;
-                     break;
-
-            case 3: x = rnd;
-                    y = 1;
-                    break;
             default: x = y = 1; break;
         }
 

@@ -19,7 +19,7 @@ public class Character : Entity
     protected void Shoot(int bulletDamage, float bulletSpeed, int faction)
     {
         GameObject projectile = (GameObject)Instantiate(Resources.Load("Prefabs\\Projectile"),
-                                transform.position + transform.up * faction, transform.rotation);
+                                transform.position, transform.rotation);
 
         Projectile bullet = projectile.GetComponent<Projectile>();
         bullet.Initialize(bulletDamage, bulletSpeed * faction, faction);
