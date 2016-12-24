@@ -4,19 +4,17 @@ using System.Collections;
 public class Enemy : Character {
 
     static public float speed = 3;
-    static int numEnemies = 0;
-    static int maxEnemies = 0;
     float shotTimer;
+    Game game;
 
 
 	// Use this for initialization
 	void Start () {
+        game = (Game)FindObjectOfType(typeof(Game));
         InitializeCharacter();
         Faction = -1;
         Health = 1;
-        numEnemies++;
-        maxEnemies++;
-        character.velocity = RandomDirection((int)Random.Range(0, 4.99f));
+        character.velocity = RandomDirection((int)Random.Range(0, 3.99f));
         shotTimer = Random.Range(1000f, 2000f);
     }
 	
@@ -24,14 +22,18 @@ public class Enemy : Character {
 	void FixedUpdate () {
         if(Health == 0)
         {
-            numEnemies--;
+            Debug.Log(game.numEnemies);
+            game.numEnemies--;
             Game.score++;
-            speed+=0.5f;
+            speed+=0.1f;
+
+            if (game.numEnemies == 0)
+                game.Reset();
         }
 
         ObjectUpdate();
         MoveEnemy();
-        AttemptShot();
+        //AttemptShot();
         Physics2D.IgnoreLayerCollision(8, 8);
 	}
 
@@ -42,7 +44,7 @@ public class Enemy : Character {
             Shoot(1, 1000f, Faction);
             shotTimer = Random.Range(500, 1500);
         }
-        shotTimer -= (200 *(5 + Random.Range(-5f, 15f)) / (maxEnemies * numEnemies * 3));
+        shotTimer -= (200 *(5 + Random.Range(-5f, 15f)) / (game.maxEnemies * game.numEnemies * 3));
     }
 
     void OnCollisionEnter2D(Collision2D collider){

@@ -5,6 +5,7 @@ public class PlayerController : Character
 {
     float speed = 500.0f;
     float timeAtLastShot;
+    HealthBar healthBar;
     
 	// Use this for initialization
 	void Start ()
@@ -12,6 +13,9 @@ public class PlayerController : Character
         InitializeCharacter();
         Health = 3;
         Faction = 1;
+
+        healthBar = (HealthBar)FindObjectOfType(typeof(HealthBar));
+        healthBar.UpdateHealth();
 	}//Start
 	
 	// Update is called once per frame
@@ -32,7 +36,9 @@ public class PlayerController : Character
     {
         Vector3 newVelocity;
 
-        if ((character.position.x -0.4 < Game.LEFT_BOUNDARY && input < 0) || (character.position.x + 0.4 > Game.RIGHT_BOUNDARY && input > 0) || input == 0)
+        if ((character.position.x -0.4 < Game.LEFT_BOUNDARY && input < 0) || 
+            (character.position.x + 0.4 > Game.RIGHT_BOUNDARY && input > 0) || 
+            input == 0)
             newVelocity = new Vector2(0, 0);
         else
             newVelocity = new Vector2(speed * input * Time.deltaTime, 0);
@@ -44,5 +50,6 @@ public class PlayerController : Character
     {
         Debug.Log("PLAYER COLLISION");
         takeDamage(collider);
+        healthBar.UpdateHealth();
     }
 }
