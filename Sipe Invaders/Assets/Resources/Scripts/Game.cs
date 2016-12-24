@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour {
 
@@ -11,32 +12,37 @@ public class Game : MonoBehaviour {
 
     static public int score = 0;
     static public int level = 1;
+    static Vector3 playerPosition = new Vector3(0, -4.7f, 0);
+    static Vector3 playerVelocity = new Vector3(0, 0, 0);
 
     public int numEnemies;
     public int maxEnemies;
 
     GameObject player;
-    
+
     void Start()
     {
-        numEnemies = level;
-        maxEnemies = level;
-
         // Create Player
-        player = (GameObject)Instantiate(Resources.Load("Prefabs\\Player"), new Vector3(0, -4.7f, 0), Quaternion.identity);
+        player = (GameObject)Instantiate(Resources.Load("Prefabs\\Player"), playerPosition, Quaternion.identity);
+        player.GetComponent<Rigidbody2D>().velocity = playerVelocity;
 
         // Create enemies
         for (int i = 0; i < level; i++)
         {
             GameObject enemy = (GameObject)Instantiate(Resources.Load("Prefabs\\Raylien"), new Vector3(0, 0, 0), Quaternion.identity);
         }
+        numEnemies = level;
+        maxEnemies = level;
     }
 
     public void Reset()
     {
-        Debug.Log("Game Reset");
-        level++;
+        playerPosition = player.transform.position;
+        playerVelocity = player.GetComponent<Rigidbody2D>().velocity;
         Destroy(player);
+
+        level++;
+        SceneManager.LoadScene("game");
         Start();
     }
 }

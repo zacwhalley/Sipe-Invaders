@@ -22,7 +22,6 @@ public class Enemy : Character {
 	void FixedUpdate () {
         if(Health == 0)
         {
-            Debug.Log(game.numEnemies);
             game.numEnemies--;
             Game.score++;
             speed+=0.1f;
