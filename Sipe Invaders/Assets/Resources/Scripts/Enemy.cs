@@ -23,11 +23,16 @@ public class Enemy : Character {
         if(Health == 0)
         {
             game.numEnemies--;
-            Game.score++;
+            Game.score += 1 + (int)(game.maxEnemies / 10);
             speed+=0.1f;
 
             if (game.numEnemies == 0)
+            {
+                Game.enemyPosition = character.transform.position;
+                Game.score += (int)(game.maxEnemies / 2);
                 game.Reset();
+            }
+                
         }
 
         ObjectUpdate();

@@ -12,24 +12,25 @@ public class Game : MonoBehaviour {
 
     static public int score = 0;
     static public int level = 1;
+    static public Vector3 enemyPosition = new Vector3(0, 0, 0);
     static Vector3 playerPosition = new Vector3(0, -4.7f, 0);
-    static Vector3 playerVelocity = new Vector3(0, 0, 0);
-
+    
     public int numEnemies;
     public int maxEnemies;
 
     GameObject player;
+    ResetFlash flash;
 
     void Start()
     {
         // Create Player
         player = (GameObject)Instantiate(Resources.Load("Prefabs\\Player"), playerPosition, Quaternion.identity);
-        player.GetComponent<Rigidbody2D>().velocity = playerVelocity;
+        flash = FindObjectOfType<ResetFlash>();
 
         // Create enemies
         for (int i = 0; i < level; i++)
         {
-            GameObject enemy = (GameObject)Instantiate(Resources.Load("Prefabs\\Raylien"), new Vector3(0, 0, 0), Quaternion.identity);
+            GameObject enemy = (GameObject)Instantiate(Resources.Load("Prefabs\\Raylien"), enemyPosition, Quaternion.identity);
         }
         numEnemies = level;
         maxEnemies = level;
@@ -37,8 +38,9 @@ public class Game : MonoBehaviour {
 
     public void Reset()
     {
+        flash.FlashColour();
+
         playerPosition = player.transform.position;
-        playerVelocity = player.GetComponent<Rigidbody2D>().velocity;
         Destroy(player);
 
         level++;
