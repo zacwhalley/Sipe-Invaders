@@ -6,11 +6,13 @@ public class Enemy : Character {
     static public float speed = 3;
     float shotTimer;
     Game game;
+    AudioSource gunSound;
 
 
 	// Use this for initialization
 	void Start () {
         game = (Game)FindObjectOfType(typeof(Game));
+        gunSound = GetComponent<AudioSource>();
         InitializeCharacter();
         Faction = -1;
         Health = 1;
@@ -37,7 +39,7 @@ public class Enemy : Character {
 
         ObjectUpdate();
         MoveEnemy();
-        //AttemptShot();
+        AttemptShot();
         Physics2D.IgnoreLayerCollision(8, 8);
 	}
 
@@ -46,9 +48,10 @@ public class Enemy : Character {
         if(shotTimer <= 0)
         {
             Shoot(1, 1000f, Faction);
+            gunSound.Play();
             shotTimer = Random.Range(500, 1500);
         }
-        shotTimer -= (200 *(5 + Random.Range(-5f, 15f)) / (game.maxEnemies * game.numEnemies * 3));
+        shotTimer -= Random.Range(0, 15) + (game.maxEnemies - game.numEnemies);
     }
 
     void OnCollisionEnter2D(Collision2D collider){
