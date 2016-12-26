@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Enemy : Character {
 
-    static public float speed = 3;
+    static public float speed = 3.5f;
     float shotTimer;
     Game game;
     AudioSource gunSound;
@@ -17,7 +17,7 @@ public class Enemy : Character {
         Faction = -1;
         Health = 1;
         character.velocity = RandomDirection((int)Random.Range(0, 3.99f));
-        shotTimer = Random.Range(1000f, 2000f);
+        shotTimer = Random.Range(500f, 3000f);
     }
 	
 	// Update is called once per frame
@@ -49,9 +49,9 @@ public class Enemy : Character {
         {
             Shoot(1, 1000f, Faction);
             gunSound.Play();
-            shotTimer = Random.Range(500, 1500);
+            shotTimer = Random.Range(500, 3000);
         }
-        shotTimer -= Random.Range(0, 15) + (game.maxEnemies - game.numEnemies);
+        shotTimer -= Random.Range(-5, 25) + 0.25f * (game.maxEnemies - game.numEnemies);
     }
 
     void OnCollisionEnter2D(Collision2D collider){
