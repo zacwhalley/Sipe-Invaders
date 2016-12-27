@@ -22,17 +22,17 @@ public class Enemy : Character {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        if(Health == 0)
+        if(Health <= 0)
         {
             game.numEnemies--;
-            Game.score += 1 + (int)(game.maxEnemies / 10);
+            game.GameScore += 1 + (int)(game.maxEnemies / 10);
             speed+=0.1f;
 
             if (game.numEnemies == 0)
             {
                 Game.enemyPosition = character.transform.position;
-                Game.score += (int)(game.maxEnemies / 2);
-                game.Reset();
+                game.GameScore += (int)(game.maxEnemies / 2);
+                game.NextLevel();
             }
                 
         }
@@ -60,11 +60,11 @@ public class Enemy : Character {
 
     void MoveEnemy()
     {
-        if (transform.position.x + 0.28 > Game.RIGHT_BOUNDARY)
+        if (transform.position.x + 0.5 > Game.RIGHT_BOUNDARY)
             character.velocity = RandomDirection(0);
         else if (transform.position.y > Game.UPPER_BOUNDARY)
             character.velocity = RandomDirection(1);
-        else if (transform.position.x - 0.25 < Game.LEFT_BOUNDARY)
+        else if (transform.position.x - 0.5 < Game.LEFT_BOUNDARY)
             character.velocity = RandomDirection(2);
         else if (transform.position.y < Game.LOWER_ENEMY_BOUNDARY)
             character.velocity = RandomDirection(3);

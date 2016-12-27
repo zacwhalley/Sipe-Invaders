@@ -7,6 +7,7 @@ public class PlayerController : Character
     float timeAtLastShot;
     AudioSource gunSound;
     static GameObject instance;
+    Game game;
 
     public HealthBar healthBar;
     
@@ -18,6 +19,7 @@ public class PlayerController : Character
         Faction = 1;
 
         gunSound = GetComponent<AudioSource>();
+        game =(Game)FindObjectOfType(typeof(Game));
         healthBar = (HealthBar)FindObjectOfType(typeof(HealthBar));
         healthBar.UpdateHealth();
 	}//Start
@@ -26,6 +28,8 @@ public class PlayerController : Character
 	void Update ()
     {
         ObjectUpdate();
+        if (Health <= 0)
+            game.GameOver();
         
         Move(Input.GetAxisRaw("Horizontal"));
         if (Input.GetKeyDown(KeyCode.Space) && (Time.time - timeAtLastShot > 0.33f))
