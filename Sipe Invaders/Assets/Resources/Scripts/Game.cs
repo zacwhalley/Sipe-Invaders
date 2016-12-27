@@ -16,27 +16,36 @@ public class Game : MonoBehaviour {
     static public int level = 1;
     static public Vector3 enemyPosition = new Vector3(0, 0, 0);
     static Vector3 playerPosition = new Vector3(0, -4.7f, 0);
+    
 
-    bool playerStatus;
+    static bool audioMuted = false;
+    float tempMusicVolume = 0;
+    static float tempAudioVolume;
+    bool playerDead;
     
     public int numEnemies;
     public int maxEnemies;
 
     GameObject player;
     ResetFlash flash;
-   
+
     CanvasGroup Interface;
     CanvasGroup GameOverMenu;
+    AudioSource Music;
 
     void Start()
     {
 
         Interface = GameObject.FindWithTag("Interface").GetComponent<CanvasGroup>();
         GameOverMenu = GameObject.FindWithTag("Game Over Menu").GetComponent<CanvasGroup>();
+        Music = GameObject.FindWithTag("Music").GetComponent<AudioSource>();
+        
+        if (tempMusicVolume != 0)
+            Music.volume = tempMusicVolume;
 
         // Create Player
         player = (GameObject)Instantiate(Resources.Load("Prefabs\\Player"), playerPosition, Quaternion.identity);
-        playerStatus = true;
+        playerDead = false;
 
         flash = FindObjectOfType<ResetFlash>();
 
@@ -51,8 +60,24 @@ public class Game : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R) && !playerStatus)
+        if (Input.GetKeyDown(KeyCode.R) && playerDead)
             ResetGame();
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (!audioMuted)
+            {
+                AudioListener.pause = true;
+                tempAudioVolume = AudioListener.volume;
+                AudioListener.volume = 0;
+            }
+            else
+            {
+                AudioListener.pause = false;
+                AudioListener.volume = tempAudioVolume;
+            }
+            audioMuted = !audioMuted;
+        }
     }
 
     public void NextLevel()
@@ -83,8 +108,10 @@ public class Game : MonoBehaviour {
     {
         Interface.alpha = 0;
         GameOverMenu.alpha = 1;
+        tempMusicVolume = Music.volume;
+        Music.volume = Mathf.Pow(Music.volume, 3);
 
-        playerStatus = false;        
+        playerDead = true;        
     }
 
     public int GameScore

@@ -32,7 +32,7 @@ public class PlayerController : Character
             game.GameOver();
         
         Move(Input.GetAxisRaw("Horizontal"));
-        if (Input.GetKeyDown(KeyCode.Space) && (Time.time - timeAtLastShot > 0.33f))
+        if (Input.GetKeyDown(KeyCode.Space) && (Time.time - timeAtLastShot > 0.67f))
         {
             Shoot(1, 1000.0f, faction);
             gunSound.Play();
